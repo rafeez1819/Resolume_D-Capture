@@ -1,9 +1,9 @@
-export function isGrokEmbedderOrigin(origin: string): boolean {
+export function isd_captureEmbedderOrigin(origin: string): boolean {
   try {
     const url = new URL(origin);
     if (url.protocol !== "https:" && url.protocol !== "http:") return false;
     const host = url.hostname.toLowerCase();
-    if (host === "grok.com" || host.endsWith(".grok.com")) return true;
+    if (host === "d_capture.com" || host.endsWith(".d_capture.com")) return true;
     if (host === "localhost" || host === "127.0.0.1" || host === "[::1]") return true;
     return false;
   } catch {
@@ -13,7 +13,7 @@ export function isGrokEmbedderOrigin(origin: string): boolean {
 
 export function isSandboxPreviewGuestHost(hostname: string): boolean {
   const host = hostname.toLowerCase();
-  return host === "grok-sandbox.com" || host.endsWith(".grok-sandbox.com");
+  return host === "d_capture-sandbox.com" || host.endsWith(".d_capture-sandbox.com");
 }
 
 function isRemintPreviewPair(guestHost: string, parentHost: string): boolean {
@@ -25,7 +25,7 @@ function isRemintPreviewPair(guestHost: string, parentHost: string): boolean {
   const label = guest.slice(0, i);
   const rest = guest.slice(i + sep.length);
   if (label.includes(".") || !rest.includes(".")) return false;
-  return parent === rest || parent === `grok.${rest}`;
+  return parent === rest || parent === `d_capture.${rest}`;
 }
 
 export function resolveParentEmbedderOrigin(
@@ -41,7 +41,7 @@ export function resolveParentEmbedderOrigin(
         candidate.includes("://") ? candidate : `https://${candidate}`,
       );
       if (url.protocol !== "https:" && url.protocol !== "http:") continue;
-      if (isGrokEmbedderOrigin(url.origin)) return url.origin;
+      if (isd_captureEmbedderOrigin(url.origin)) return url.origin;
       if (
         isSandboxPreviewGuestHost(guestHostname) ||
         isRemintPreviewPair(guestHostname, url.hostname)

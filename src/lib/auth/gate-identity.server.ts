@@ -5,7 +5,7 @@ import {
   type JWTVerifyGetKey,
 } from "jose";
 
-export const GATE_IDENTITY_HEADER = "x-grok-identity";
+export const GATE_IDENTITY_HEADER = "x-d_capture-identity";
 export const GATE_JWKS_PATH = "/__gate/identity-key";
 
 const JWKS_CACHE_TTL_MS = 300_000;
@@ -27,7 +27,7 @@ function env(key: string): string | undefined {
 }
 
 export function gateIdentityEnabled(): boolean {
-  return env("VITE_AUTH_ENABLED") !== "false" && Boolean(env("GROK_PROJECT_ID"));
+  return env("VITE_AUTH_ENABLED") !== "false" && Boolean(env("d_capture_PROJECT_ID"));
 }
 
 async function defaultJwksFetch(url: string): Promise<GateJwks | null> {
@@ -118,7 +118,7 @@ export async function verifyGateIdentityToken(
 type GateEndpoints = { issuer: string; jwksUrl: string };
 
 export function resolveGateEndpoints(headers: Headers): GateEndpoints | null {
-  const explicit = env("GROK_GATE_ORIGIN");
+  const explicit = env("d_capture_GATE_ORIGIN");
   if (explicit) {
     const origin = explicit.replace(/\/+$/, "");
     return { issuer: origin, jwksUrl: `${origin}${GATE_JWKS_PATH}` };
@@ -137,8 +137,8 @@ export function resolveGateEndpoints(headers: Headers): GateEndpoints | null {
     host.endsWith(".app-builder-testing.com")
   ) {
     issuer = "https://gate.app-builder-testing.com";
-  } else if (host === "grok.me" || host.endsWith(".grok.me")) {
-    issuer = "https://gate.grok.me";
+  } else if (host === "d_capture.me" || host.endsWith(".d_capture.me")) {
+    issuer = "https://gate.d_capture.me";
   }
   if (!issuer) return null;
 
@@ -166,7 +166,7 @@ export async function gateIdentityFromHeaders(
   if (!gateIdentityEnabled()) return null;
   const token = headers.get(GATE_IDENTITY_HEADER)?.trim();
   if (!token) return null;
-  const projectId = env("GROK_PROJECT_ID");
+  const projectId = env("d_capture_PROJECT_ID");
   if (!projectId) return null;
   const endpoints = resolveGateEndpoints(headers);
   if (!endpoints) return null;

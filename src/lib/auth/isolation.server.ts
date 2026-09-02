@@ -8,7 +8,7 @@ import { getRequest } from "@tanstack/react-start/server";
  * client/server module under a non-`.server` name, Vite ships it to the browser
  * and the app dies with: `AsyncLocalStorage is not a constructor`.
  *
- * Apps deployed on `*.grok.me` are "same-site" to each other but MUTUALLY
+ * Apps deployed on `*.d_capture.me` are "same-site" to each other but MUTUALLY
  * UNTRUSTED, and a `SameSite=Lax` session cookie IS sent on same-site
  * subrequests — so without this, a malicious sibling could make a SCRIPTED
  * (fetch/XHR/form-POST) request to this app's server functions and ride this

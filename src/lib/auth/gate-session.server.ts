@@ -14,8 +14,8 @@ import {
 } from "./gate-identity.server";
 import { GATE_SESSION_MARKER_COOKIE } from "./gate-session-marker";
 
-export const GATE_PROVIDER_ID = "grok-gate";
-const GATE_ACCOUNT_ISSUER = "https://grok.com";
+export const GATE_PROVIDER_ID = "d_capture-gate";
+const GATE_ACCOUNT_ISSUER = "https://d_capture.com";
 const LOG = "[gate-identity]";
 
 type GateAccount = Parameters<typeof handleOAuthUserInfo>[1]["account"];
@@ -175,7 +175,7 @@ async function writeGateMarkerCookie(
 }
 
 /**
- * Clear a stale marker when a `/get-session` arrives without `x-grok-identity`:
+ * Clear a stale marker when a `/get-session` arrives without `x-d_capture-identity`:
  * the browser is no longer behind a gate viewer (returned anonymously, or the
  * session is a broker one), so sign-out must not stay hidden. Emits the
  * Max-Age=0 clear only when the marker is actually on the request.
@@ -206,7 +206,7 @@ function removeRequestCookie(headers: Headers, name: string): void {
 
 export function gateIdentitySessions() {
   return {
-    id: "grok-gate-identity",
+    id: "d_capture-gate-identity",
     hooks: {
       before: [
         {
@@ -281,10 +281,10 @@ export function gateIdentitySessions() {
                 userInfo: {
                   id: identity.sub,
                   email: (
-                    identity.email ?? `${identity.sub}@viewer.grok.invalid`
+                    identity.email ?? `${identity.sub}@viewer.d_capture.invalid`
                   ).toLowerCase(),
                   emailVerified: Boolean(identity.email),
-                  name: identity.name ?? "Grok user",
+                  name: identity.name ?? "d_capture user",
                 },
                 account: {
                   providerId: GATE_PROVIDER_ID,

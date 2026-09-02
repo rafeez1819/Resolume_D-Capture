@@ -20,7 +20,7 @@ import { auth, SESSION_TOKEN_COOKIE } from "./server";
 
 /** Message shape the popup posts to the opener (must match `client.ts`). */
 type PopupMessage = {
-  source: "grok-auth-popup";
+  source: "d_capture-auth-popup";
   token: string | null;
   error?: string;
 };
@@ -37,7 +37,7 @@ export async function handleAuthPopupRequest(request: Request): Promise<Response
     const errored = url.searchParams.has("error");
     const token = errored ? null : readCookie(request, SESSION_TOKEN_COOKIE);
     const message: PopupMessage = {
-      source: "grok-auth-popup",
+      source: "d_capture-auth-popup",
       token,
       ...(errored ? { error: url.searchParams.get("error") ?? "sign_in_failed" } : {}),
     };
@@ -69,7 +69,7 @@ export async function handleAuthPopupRequest(request: Request): Promise<Response
         errorCallbackURL: `${back}&error=1`,
       },
       // Forward the preview host so Better Auth derives the correct baseURL /
-      // redirect_uri for the dynamic `*.grok-sandbox.com` origin.
+      // redirect_uri for the dynamic `*.d_capture-sandbox.com` origin.
       headers: request.headers,
       asResponse: true,
     });
@@ -77,7 +77,7 @@ export async function handleAuthPopupRequest(request: Request): Promise<Response
     if (!apiRes.ok) {
       const detail = await apiRes.text().catch(() => "");
       return completionResponse({
-        source: "grok-auth-popup",
+        source: "d_capture-auth-popup",
         token: null,
         error: detail || `oauth_init_failed_${apiRes.status}`,
       });
@@ -89,7 +89,7 @@ export async function handleAuthPopupRequest(request: Request): Promise<Response
     const location = body?.url;
     if (!location) {
       return completionResponse({
-        source: "grok-auth-popup",
+        source: "d_capture-auth-popup",
         token: null,
         error: "oauth_init_missing_url",
       });
@@ -105,7 +105,7 @@ export async function handleAuthPopupRequest(request: Request): Promise<Response
   } catch (err) {
     const message = err instanceof Error ? err.message : "oauth_init_threw";
     return completionResponse({
-      source: "grok-auth-popup",
+      source: "d_capture-auth-popup",
       token: null,
       error: message,
     });
@@ -141,11 +141,11 @@ function completionHtml(message: PopupMessage): string {
 </head>
 <body>
 <main><p>Signing you in…</p></main>
-<script type="application/json" id="grok-auth-popup-msg">${payload}</script>
+<script type="application/json" id="d_capture-auth-popup-msg">${payload}</script>
 <script>
 (function () {
-  var el = document.getElementById("grok-auth-popup-msg");
-  var msg = { source: "grok-auth-popup", token: null };
+  var el = document.getElementById("d_capture-auth-popup-msg");
+  var msg = { source: "d_capture-auth-popup", token: null };
   try { if (el && el.textContent) msg = JSON.parse(el.textContent); } catch (e) {}
   try {
     if (window.opener) window.opener.postMessage(msg, window.location.origin);

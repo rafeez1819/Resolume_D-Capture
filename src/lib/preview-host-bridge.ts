@@ -1,7 +1,7 @@
 /**
- * Guest side of the grok-web ↔ sandbox preview postMessage bridge.
+ * Guest side of the d_capture-web ↔ sandbox preview postMessage bridge.
  *
- * Activates only when this page is framed by an allowlisted Grok embedder.
+ * Activates only when this page is framed by an allowlisted d_capture embedder.
  * Top-level runs (download/export, local `npm run dev`, deployed sites) noop.
  */
 
@@ -9,12 +9,12 @@ import { z } from "zod";
 import { resolveParentEmbedderOrigin } from "./preview-embedder-origin";
 
 export {
-  isGrokEmbedderOrigin,
+  isd_captureEmbedderOrigin,
   isSandboxPreviewGuestHost,
   resolveParentEmbedderOrigin,
 } from "./preview-embedder-origin";
 
-export const PREVIEW_BRIDGE_CHANNEL = "grok-preview-bridge" as const;
+export const PREVIEW_BRIDGE_CHANNEL = "d_capture-preview-bridge" as const;
 export const PREVIEW_BRIDGE_VERSION = 1 as const;
 
 const EnvelopeSchema = z.object({
@@ -58,7 +58,7 @@ export function isSafeBridgePath(path: string): boolean {
 
 /**
  * Install host↔guest messaging. Returns a dispose function.
- * Noops (returns a no-op dispose) when not embedded under a Grok parent.
+ * Noops (returns a no-op dispose) when not embedded under a d_capture parent.
  */
 export function installPreviewHostBridge(
   options: PreviewHostBridgeOptions = {},
@@ -77,7 +77,7 @@ export function installPreviewHostBridge(
   );
   if (parentOrigin === null) return () => {};
 
-  const ROOT_STATE_KEY = "__grokPreviewBridgeRoot";
+  const ROOT_STATE_KEY = "__d_capturePreviewBridgeRoot";
   const originalPushState = window.history.pushState.bind(window.history);
   const originalReplaceState = window.history.replaceState.bind(window.history);
 
