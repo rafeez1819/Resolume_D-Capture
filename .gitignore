@@ -1,0 +1,17 @@
+node_modules
+.tanstack/
+dist/
+.output/
+.nitro/
+.cache/
+.env
+.env.*
+!.env.example
+screenshots/
+*.log
+.DS_Store
+.vscode/
+.idea/
+*.local
+.tmp/
+artifacts/imagine_images/
