@@ -354,11 +354,15 @@ Recommended environment:
 ---
 
 # Installation
-
+```
+Option: 1
+Double click "start.bat" 
+```
+Option: 2
 Clone the repository:
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
+git clone [<YOUR_REPOSITORY_URL>](https://github.com/rafeez1819/Resolume_D-Capture)
 cd D-Capture
 ```
 
