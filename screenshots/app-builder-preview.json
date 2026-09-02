@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Desktop Capture",
+      "hasCanvas": true,
+      "bodyTextLen": 592,
+      "bodyTextHash": "6767bacf1c5bd17ca1f32ca37226269bb44fa60c355519a0c6375df76d9c8422",
+      "bodyTextPrefix": "LOCAL · OFFLINE · SPOUT Desktop Capture STANDBY / 0 FPS 1920 × 1",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Desktop Capture",
+      "hasCanvas": true,
+      "bodyTextLen": 566,
+      "bodyTextHash": "689b9a9276642c25878f7db58f6875cd9ea73811de7a236b6b09604309f8efde",
+      "bodyTextPrefix": "LOCAL · OFFLINE · SPOUT Desktop Capture STANDBY / 9 FPS SOURCE T",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
