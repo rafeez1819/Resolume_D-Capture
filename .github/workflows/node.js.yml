@@ -16,7 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.x, 24.x]
+        # pdfjs-dist@6 requires Node >=22.13.0 || >=24
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
